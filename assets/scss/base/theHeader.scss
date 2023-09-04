@@ -1,0 +1,50 @@
+@import "assets/scss/reset";
+@import "assets/scss/_variables.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px 20px;
+  border-bottom: 0.5px solid $gray-8;
+
+  &-txt {
+    font-size: 20px;
+    font-weight: 600;
+    color: $gray-6;
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 0.5px solid $gray-8;
+    border-radius: 200px;
+    padding: 12px 24px;
+    max-width: calc(650px - 49px);
+    width: 100%;
+
+    &-txt {
+      font-size: 16px;
+      font-weight: 600;
+      color: $gray-3;
+
+      &::placeholder {
+        color: $gray-9;
+        font-size: 16px;
+      }
+    }
+
+  }
+
+  .option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 25px;
+
+    &-item {
+      cursor: pointer;
+    }
+  }
+}

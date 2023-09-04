@@ -1,0 +1,165 @@
+@import "@/assets/scss/_reset.scss";
+@import "@/assets/scss/_variables.scss";
+
+
+//.router-link-exact-active {
+//  color: green;
+//}
+
+
+.bgcColor {
+  fill: $bgc-2;
+  stroke: $bgc-2;
+  color: $bgc-2;
+}
+
+.menu {
+  position: relative;
+  transition: .3s ease-out;
+  background-color: $bgc-4;
+  height: 100vh;
+  float: left;
+  width: 230px;
+  z-index: 1;
+
+  .right-icon {
+    position: absolute;
+    top: 19px;
+    right: -12px;
+    transform: rotate(180deg);
+    padding: 0 20px;
+    cursor: pointer;
+    transition: .3s ease-out;
+
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0 12px;
+    cursor: pointer;
+    padding: 20px 0 8px 20px;
+
+    img {
+      width: 35px;
+      height: 30px;
+    }
+
+    &-txt {
+      background: $bgc-0;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease-out;
+    }
+  }
+
+  .menu-txt {
+    padding: 50px 0 0 20px;
+    color: $gray-2;
+
+  }
+
+  .option {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 0 12px;
+      padding: 12px 20px;
+
+
+    }
+
+
+    &-txt {
+      display: flex;
+      align-items: center;
+      gap: 0 12px;
+      color: $gray-0;
+
+    }
+
+    .txtOption {
+      display: flex;
+      align-items: center;
+      gap: 0 12px;
+      transition: 0.3s ease-out;
+
+      &.router-link-exact-active {
+        background-color: #344055;
+      }
+
+    }
+
+
+  }
+
+
+  .setting {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border-radius: 12px;
+
+    &-img {
+      display: flex;
+      align-items: center;
+      gap: 0 15px;
+      cursor: pointer;
+    }
+
+    &-txt {
+      color: $gray-0;
+    }
+  }
+}
+
+.menuNav {
+  transition: .3s ease-out;
+  width: 64px;
+}
+
+.iconRight {
+  position: absolute;
+  bottom: 50px;
+  transform: rotate(180deg);
+  padding: 0 12px;
+  cursor: pointer;
+
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  gap: 0 12px;
+  cursor: pointer;
+  transition: .3s ease-out;
+  padding: 20px 0 8px 14px !important;
+}
+
+.logoText {
+  transition: .3s ease-out;
+  display: none !important;
+}
+
+.textOption {
+  transition: .3s ease-out;
+  display: none !important;
+}
+
+.settingTxt {
+  transition: .3s ease-out;
+  display: none !important;
+}
+
+.menuText {
+  padding: 80px 0 8px 8px !important;
+  color: $gray-2;
+}
