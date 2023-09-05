@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <product-card v-for="product in listData" :key="product.id" class="product-item" :product="product"/>
+    <product-card v-for="(product,index) in listData" :key="index" class="product-item" :product="product"/>
   </div>
 </template>
 <script setup>
@@ -11,6 +11,7 @@ import {store} from "~/store";
 // const {data: products} = await useFetch('https://fakestoreapi.com/products');
 
 const listData = computed(() => store.state.listProduct);
+
 onMounted(async () => {
   await store.dispatch('setProduct');
   // await store.dispatch('otherAction');
@@ -30,8 +31,4 @@ onMounted(async () => {
 
 }
 
-img {
-  width: 250px;
-  height: 250px;
-}
 </style>

@@ -6,7 +6,9 @@ export const store = createStore({
         listProduct: [],
         textRouter: 'Home',
         cart: [],
-        selectedProduct: null
+        selectedProduct: null,
+
+        toastMessage: null,
 
     },
     mutations: {
@@ -36,14 +38,24 @@ export const store = createStore({
                 state.cart.splice(index, 1);
             }
         },
+
+        SET_TOAST_MESSAGE(state, message) {
+            state.toastMessage = message
+        },
+
+        CLEAR_TOAST_MESSAGE(state) {
+            state.toastMessage = null
+        },
     },
     getters: {
         cartItems: (state) => {
             return state.cart.map((item) => {
                 const product = state.listProduct.find((p) => p.id === item.id);
-                return {...item, ...product};
+                return { ...item, ...product };
             });
         },
+
+        toastMessage: (state) => state.toastMessage,
     },
     actions: {
         // call api lấy toàn bộ sản phẩm
@@ -54,6 +66,13 @@ export const store = createStore({
             } catch (error) {
                 console.error('Error fetching data:', error)
             }
+        },
+
+        showSuccessToast({ commit }, message) {
+            commit('SET_TOAST_MESSAGE', message)
+            setTimeout(() => {
+                commit('CLEAR_TOAST_MESSAGE')
+            }, 5000)
         },
 
     }

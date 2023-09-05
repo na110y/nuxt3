@@ -1,7 +1,9 @@
 export default ({
     devtools: {enabled: true},
     buildModules: ['@nuxt/typescript-build'],
-    // plugins: ['~/plugins/store.js'],
+    plugins: [
+        // { src: '~/plugins/toast.js', ssr: false }
+    ],
     css: [
         '@/assets/scss/_reset.scss',
         '@/assets/scss/_variables.scss',

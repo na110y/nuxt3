@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px 20px;
-  border-bottom: 0.5px solid $gray-8;
+  border-bottom: 0.5px solid $gray-9;
 
   &-txt {
     font-size: 20px;
@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    border: 0.5px solid $gray-8;
+    border: 0.5px solid $gray-9;
     border-radius: 200px;
     padding: 12px 24px;
     max-width: calc(650px - 49px);

@@ -1,9 +1,11 @@
 <template>
   <div class="product">
     <div class="product-details">
-      <img class="product-details_img" :src="product.image" alt="">
+      <img class="product-details_img" :src="product.image" alt="" />
       <div class="product-details_select">
         <div class="product-details_title">{{ product.title }}</div>
+        <div class="product-details_category">{{ product.category }}</div>
+        <div class="product-details_description">{{ product.description }}</div>
         <div class="product-details_price">{{ product.price }} <span>$</span></div>
         <div class="quantity-number">
           <div class="quantity-number_txt">Số lượng</div>
@@ -13,86 +15,49 @@
             <div class="last" @click="increaseValue">+</div>
           </div>
         </div>
-        <div class="product-details_cart" @click="btnShowCart">Thêm vào giỏ hàng</div>
-        <div class="product-addCart">Mua ngay</div>
+        <div class="product-details_cart" @click="addToCart">Thêm vào giỏ hàng</div>
+        <nuxt-link to="/cart" class="cart-link_txt"> Đi tới giỏ hàng</nuxt-link>
       </div>
     </div>
 
-    <div class="cart-mini" v-if="isShowCart ">
-      <div class="cart-mini_head">
-        <div class="cart-name">Giỏ hàng</div>
-        <img @click="btnCancel" class="cart-close" src="@/assets/img/close.svg" alt="error">
-      </div>
-      <div class="cart-mini_content">
-        <img class="cart-mini_img" :src="product.image" alt="">
-        <div class="">
-          <div class="cart-mini_title"> {{ product.title }}</div>
-          <div class="cart-mini_quantity">
-            <div class="fist" @click="decreaseValue">-</div>
-            <div class="center">{{ currentValue }}</div>
-            <div class="last" @click="increaseValue">+</div>
-
-          </div>
-
-        </div>
-      </div>
-      <div class="cart-mini_footer">
-        <div class="cart-priceAll">
-          <div class="cart-priceAll_txt">Tạm tính</div>
-          <div class="cart-priceAll_number"> {{ product.price }} <span>$</span></div>
-        </div>
-        <div class="cart-link">
-          <nuxt-link to="/cart" class="cart-link_txt"> Đi tới giỏ hàng</nuxt-link>
-        </div>
-        <div class="cart-btn">
-          <div class="cart-btn_add" @click="addtocart">Thêm vào giỏ hàng</div>
-        </div>
-      </div>
-
-    </div>
+    <toast />
   </div>
 </template>
 <script setup>
-import {ref, computed, onMounted} from 'vue';
-import {store} from "~/store";
-
-const {id} = useRoute().params
-const defaultID = 'https://fakestoreapi.com/products/' + id;
-const {data: product} = await useFetch(defaultID, {key: id})
-
-const isShowCart = ref(false)
+import { ref, computed, onMounted } from "vue";
+import { store } from "~/store";
+import toast from '@/components/modal/toast.vue'
+const { id } = useRoute().params;
+const defaultID = "https://fakestoreapi.com/products/" + id;
+const { data: product } = await useFetch(defaultID, { key: id });
 const currentValue = ref(1);
+
+
+const toastMessage = ref('');
+
+
 const decreaseValue = () => {
-  currentValue.value--;
-}
+  if (currentValue.value > 1) {
+    currentValue.value--;
+  }
+};
 const increaseValue = () => {
   currentValue.value++;
-}
-const btnCancel = () => {
-  isShowCart.value = false
-}
+};
 
-const selectedProduct = computed(() => store.state.selectedProduct);
 
-const addtocart = () => {
-  // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-  const existingProduct = store.state.cart.find((item) => item.id === product.id);
-  if (existingProduct) {
-    // Nếu đã tồn tại, tăng số lượng
-    existingProduct.currentValue++;
-  } else {
-    // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
-    const newProduct = {...product, currentValue: 1};
-    store.commit('ADD_TO_CART', newProduct);
-  }
-}
-const btnShowCart = () => {
-  isShowCart.value = true
-  // Lưu sản phẩm đã chọn vào store
-  store.commit('SET_SELECTED_PRODUCT', selectedProduct);
-}
+
+const addToCart = () => {
+  const productNew = { ...product };
+  // Gán giá trị currentValue vào sản phẩm
+  productNew.currentValue = currentValue.value;
+  store.commit("ADD_TO_CART", productNew);
+
+  store.dispatch('showSuccessToast', 'Thêm sản phẩm thành công!')
+};
 
 </script>
+
 <style lang="scss" scoped>
 @import "assets/scss/_reset.scss";
 
@@ -106,7 +71,7 @@ const btnShowCart = () => {
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 10px;
-    color: #12131C;
+    color: #12131c;
   }
 }
 
@@ -137,7 +102,6 @@ const btnShowCart = () => {
   }
 }
 
-
 .cart-mini {
   position: fixed;
   top: 85px;
@@ -146,9 +110,8 @@ const btnShowCart = () => {
   width: 100%;
   height: 100vh;
   z-index: 1;
-  transition: .3s ease-out;
+  transition: 0.3s ease-out;
   border-left: 1px solid $gray-10;
-
 
   &_head {
     display: flex;
@@ -184,7 +147,6 @@ const btnShowCart = () => {
     margin-top: 50px;
     border-top: 1px solid $gray-10;
 
-
     .cart-priceAll {
       display: flex;
       justify-content: space-between;
@@ -206,29 +168,7 @@ const btnShowCart = () => {
       }
     }
 
-    .cart-link {
-      padding: 0 16px;
 
-      &_txt {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 0.2px solid $gray-6;
-        font-size: 18px;
-        height: 53px;
-        width: 100%;
-        margin-bottom: 10px;
-        cursor: pointer;
-        color: $gray-6;
-
-        &:hover {
-          transition: .2s ease-out;
-          border: .2px solid $gray-4;
-          background-color: $gray-4;
-          color: $gray-0;
-        }
-      }
-    }
 
     .cart-btn {
       padding: 0 16px;
@@ -238,22 +178,19 @@ const btnShowCart = () => {
         justify-content: center;
         align-items: center;
         background-color: $gray-6;
-        color: #FFF;
+        color: #fff;
         font-size: 18px;
         height: 53px;
         width: 100%;
         cursor: pointer;
-
       }
     }
-
   }
 
   &_img {
     padding: 16px;
     width: 150px;
     height: 150px;
-
   }
 
   &_title {
@@ -293,6 +230,35 @@ const btnShowCart = () => {
   }
 }
 
+.cart-link {
+  padding: 0 16px;
+  &_txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.2px solid $gray-9;
+    font-size: 18px;
+    height: 53px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: $gray-6;
+    color:$gray-0 ;
+  }
+}
+
+.product-details_category {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: $gray-6;
+}
+.product-details_description {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: $gray-6;
+}
 
 .product {
   padding: 16px;
@@ -305,12 +271,15 @@ const btnShowCart = () => {
       margin-left: 30px;
       display: flex;
       flex-direction: column;
+      max-width: 500px;
+      width: 100%;
     }
 
     &_img {
       max-width: 350px;
       width: 100%;
       height: auto;
+      cursor: zoom-in;
     }
   }
 }
@@ -333,7 +302,7 @@ const btnShowCart = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: .2px solid $gray-6;
+  border: 0.2px solid $gray-9;
   font-size: 18px;
   height: 53px;
   width: calc(100% - 2px);
@@ -341,8 +310,8 @@ const btnShowCart = () => {
   cursor: pointer;
 
   &:hover {
-    transition: .2s ease-out;
-    border: .2px solid $gray-4;
+    transition: 0.2s ease-out;
+    border: 0.2px solid $gray-4;
     background-color: $gray-4;
     color: $gray-0;
   }
@@ -359,5 +328,4 @@ const btnShowCart = () => {
   width: 100%;
   cursor: pointer;
 }
-
 </style>
