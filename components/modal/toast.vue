@@ -16,25 +16,27 @@
 
 <script setup>
 
-import { ref, computed, onMounted } from "vue";
+import {ref, computed, onMounted} from "vue";
 import {store} from "~/store";
 
-const closeToast = () => {store.commit('CLEAR_TOAST_MESSAGE')}
+const closeToast = () => {
+  store.commit('CLEAR_TOAST_MESSAGE')
+}
 const message = computed(() => store.getters.toastMessage);
 
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
 
-body{
-  height: 100vh;
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,30 +44,30 @@ body{
   overflow: hidden;
 }
 
-.toast{
-  position: absolute;
+.toast {
+  position: fixed;
   top: 105px;
   right: 16px;
   border-radius: 12px;
   background: #fff;
   padding: 5px 20px 10px 10px;
-  box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-left: 5px solid #47CF73;
   overflow: hidden;
   transform: translateX(calc(100% + 30px));
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
 }
 
-.toast.active{
+.toast.active {
   transform: translateX(0%);
 }
 
-.toast .toast-content{
+.toast .toast-content {
   display: flex;
   align-items: center;
 }
 
-.toast-content .check{
+.toast-content .check {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,24 +79,24 @@ body{
   border-radius: 50%;
 }
 
-.toast-content .message{
+.toast-content .message {
   display: flex;
   flex-direction: column;
   margin: 0 20px;
 }
 
-.message .text{
+.message .text {
   font-size: 18px;
   font-weight: 400;;
   color: #666666;
 }
 
-.message .text.text-1{
+.message .text.text-1 {
   font-weight: 600;
   color: #333;
 }
 
-.toast .close{
+.toast .close {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -103,11 +105,11 @@ body{
   opacity: 0.7;
 }
 
-.toast .close:hover{
+.toast .close:hover {
   opacity: 1;
 }
 
-.toast .progress{
+.toast .progress {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -116,7 +118,7 @@ body{
   background: #ddd;
 }
 
-.toast .progress:before{
+.toast .progress:before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -126,17 +128,17 @@ body{
   background-color: #47CF73;
 }
 
-.progress.active:before{
+.progress.active:before {
   animation: progress 5s linear forwards;
 }
 
 @keyframes progress {
-  100%{
+  100% {
     right: 100%;
   }
 }
 
-button{
+button {
   padding: 12px 20px;
   font-size: 20px;
   outline: none;
@@ -148,11 +150,11 @@ button{
   transition: 0.3s;
 }
 
-button:hover{
+button:hover {
   background-color: #0e4bf1;
 }
 
-.toast.active ~ button{
+.toast.active ~ button {
   pointer-events: none;
 }
 

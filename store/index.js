@@ -32,7 +32,7 @@ export const store = createStore({
         },
 
         REMOVE_FROM_CART(state, productId) {
-            const index = state.cart.findIndex(item => item.id === productId);
+            const index = state.cart.findIndex(item => item._rawValue.id === productId);
             if (index !== -1) {
                 state.cart.splice(index, 1);
             }
@@ -45,12 +45,14 @@ export const store = createStore({
         CLEAR_TOAST_MESSAGE(state) {
             state.toastMessage = null
         },
+
+
     },
     getters: {
         cartItems: (state) => {
             return state.cart.map((item) => {
                 const product = state.listProduct.find((p) => p.id === item.id);
-                return { ...item, ...product };
+                return {...item, ...product};
             });
         },
 
@@ -67,7 +69,7 @@ export const store = createStore({
             }
         },
 
-        showSuccessToast({ commit }, message) {
+        showSuccessToast({commit}, message) {
             commit('SET_TOAST_MESSAGE', message)
             setTimeout(() => {
                 commit('CLEAR_TOAST_MESSAGE')
