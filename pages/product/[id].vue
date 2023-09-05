@@ -27,13 +27,22 @@
 import { ref, computed, onMounted } from "vue";
 import { store } from "~/store";
 import toast from '@/components/modal/toast.vue'
+
+
+
 const { id } = useRoute().params;
 const defaultID = "https://fakestoreapi.com/products/" + id;
 const { data: product } = await useFetch(defaultID, { key: id });
 const currentValue = ref(1);
+const addToCart = () => {
+  const productNew = { ...product };
+  // Gán giá trị currentValue vào sản phẩm
+  productNew.currentValue = currentValue.value;
+  store.commit("ADD_TO_CART", productNew);
 
-
-const toastMessage = ref('');
+  // hiển thị toast khi nhấn thêm giỏ hàng
+  store.dispatch('showSuccessToast', 'Thêm sản phẩm thành công!')
+};
 
 
 const decreaseValue = () => {
@@ -47,14 +56,7 @@ const increaseValue = () => {
 
 
 
-const addToCart = () => {
-  const productNew = { ...product };
-  // Gán giá trị currentValue vào sản phẩm
-  productNew.currentValue = currentValue.value;
-  store.commit("ADD_TO_CART", productNew);
 
-  store.dispatch('showSuccessToast', 'Thêm sản phẩm thành công!')
-};
 
 </script>
 

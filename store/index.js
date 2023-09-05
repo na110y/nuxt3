@@ -7,7 +7,6 @@ export const store = createStore({
         textRouter: 'Home',
         cart: [],
         selectedProduct: null,
-
         toastMessage: null,
 
     },
@@ -32,8 +31,8 @@ export const store = createStore({
             state.cart.push(product);
         },
 
-        REMOVE_CART(state, productId) {
-            const index = state.cart.findIndex((item) => item.id === productId);
+        REMOVE_FROM_CART(state, productId) {
+            const index = state.cart.findIndex(item => item.id === productId);
             if (index !== -1) {
                 state.cart.splice(index, 1);
             }
