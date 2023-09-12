@@ -15,7 +15,6 @@
 
       </div>
 
-
       <cart-mini :isShowCart="isShowCart" @closeCartMini="isCartMini"/>
     </div>
   </header>
@@ -28,7 +27,7 @@ import sign from '~/assets/img/sign.svg'
 import {store} from "~/store";
 import cartMini from "~/components/modal/cartMini.vue";
 
-// // gọi lên store để ấy giá trị của text router khi đã lưu
+// gọi lên store để ấy giá trị của text router khi đã lưu
 const currentContent = computed(() => store.state.textRouter)
 const isShowCart = ref(false)
 
@@ -36,13 +35,18 @@ const isCartMini = (value) => {
   isShowCart.value = value
 }
 
+// nhấn để mở giỏ hàng
 const btnShowCart = (item) => {
   if (item.img === cart) {
     isShowCart.value = true;
   }
 
 }
+
+// lấy ra số lượng sản phẩm
 const cartItemCount = computed(() => store.state.cart.length);
+
+
 const listOption = ref([
   {
     img: cart

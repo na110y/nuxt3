@@ -29,11 +29,15 @@ import {ref, computed, onMounted} from "vue";
 import {store} from "~/store";
 import toast from '@/components/modal/toast.vue'
 
-
+// lấy ra giá trị id của sản phẩm đã chọn
 const {id} = useRoute().params;
 const defaultID = "https://fakestoreapi.com/products/" + id;
+
+// lấy ra thông tin của sản phẩm đã chọn
 const {data: product} = await useFetch(defaultID, {key: id});
 const currentValue = ref(1);
+
+// nhấn thêm sản phẩm vào giỏ hàng
 const addToCart = () => {
   const productNew = {...product};
   productNew.currentValue = currentValue.value;// Gán giá trị currentValue vào sản phẩm
@@ -41,11 +45,15 @@ const addToCart = () => {
   // hiển thị toast khi nhấn thêm giỏ hàng
   store.dispatch('showSuccessToast', 'Thêm sản phẩm thành công!')
 };
+
+// giảm số lượng sản phẩm
 const decreaseValue = () => {
   if (currentValue.value > 1) {
     currentValue.value--;
   }
 };
+
+// tăng số lượng sản phẩm
 const increaseValue = () => {
   currentValue.value++;
 };

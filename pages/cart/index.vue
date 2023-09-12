@@ -58,43 +58,35 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {store} from "~/store";
 import {ref, computed, onMounted, watch} from "vue";
 
-export default {
-  setup() {
-    // lấy ra danh sách của mảng cart
-    const listCart = computed(() => store.getters.cartItems);
 
-    // tính số lượng sản phẩm
-    const totalQuantity = computed(() => {
-      return listCart.value.reduce((total, item) => total + item.currentValue, 0);
-    });
+// lấy ra danh sách của mảng cart
+const listCart = computed(() => store.getters.cartItems);
 
-    // Tính tổng số tiền tạm tính
-    const totalPrice = computed(() => {
-      return listCart.value.reduce((total, item) => total + item._value.price * item.currentValue, 0);
-    });
+// tính số lượng sản phẩm
+const totalQuantity = computed(() => {
+  return listCart.value.reduce((total, item) => total + item.currentValue, 0);
+});
 
-    // xóa sản phẩm khỏi mảng cart
-    const deleteCart = (productId, index) => {
-      // Xóa sản phẩm khỏi danh sách giỏ hàng trong store
-      store.commit("REMOVE_FROM_CART", productId);
-    }
+// Tính tổng số tiền tạm tính
+const totalPrice = computed(() => {
+  return listCart.value.reduce((total, item) => total + item._value.price * item.currentValue, 0);
+});
 
-
-    onMounted(async () => {
-      await store.dispatch('setProduct');
-    });
-    return {
-      listCart,
-      totalQuantity,
-      totalPrice,
-      deleteCart
-    }
-  }
+// xóa sản phẩm khỏi mảng cart
+const deleteCart = (productId, index) => {
+  // Xóa sản phẩm khỏi danh sách giỏ hàng trong store
+  store.commit("REMOVE_FROM_CART", productId);
 }
+
+
+onMounted(async () => {
+  await store.dispatch('setProduct');
+});
+
 
 
 </script>

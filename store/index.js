@@ -11,14 +11,17 @@ export const store = createStore({
 
     },
     mutations: {
+        // lấy ra danh sách sản phẩm
         SET_PRODUCT(state, listProduct) {
             state.listProduct = listProduct
         },
+
 
         SET_CART(state, product) {
             state.cart = product
         },
 
+        // lấy ra giá trị txt của router
         SET_ROUTER_TEXT(state, text) {
             state.textRouter = text
         },
@@ -27,10 +30,12 @@ export const store = createStore({
             state.selectedProduct = product;
         },
 
+        // thêm sản phẩm vào giỏ hàng
         ADD_TO_CART(state, product) {
             state.cart.push(product);
         },
 
+        // xóa sản phẩm ở giỏ hàng
         REMOVE_FROM_CART(state, productId) {
             const index = state.cart.findIndex(item => item._rawValue.id === productId);
             if (index !== -1) {
@@ -38,10 +43,12 @@ export const store = createStore({
             }
         },
 
+        // khởi tạo toast message
         SET_TOAST_MESSAGE(state, message) {
             state.toastMessage = message
         },
 
+        // tắt toast message
         CLEAR_TOAST_MESSAGE(state) {
             state.toastMessage = null
         },
@@ -49,6 +56,7 @@ export const store = createStore({
 
     },
     getters: {
+        // lấy ra danh sách sản phẩm khi đã thêm vào giỏ hàng
         cartItems: (state) => {
             return state.cart.map((item) => {
                 const product = state.listProduct.find((p) => p.id === item.id);
@@ -69,6 +77,7 @@ export const store = createStore({
             }
         },
 
+        // toast message tự động tắt trong 5s
         showSuccessToast({commit}, message) {
             commit('SET_TOAST_MESSAGE', message)
             setTimeout(() => {

@@ -73,6 +73,7 @@ const setCurrentContent = (content) => {
   store.commit('SET_ROUTER_TEXT', content);
 };
 
+// thu nhỏ thanh menu
 const btnClickMenu = () => {
   isMenuNav.value = !isMenuNav.value
 }
