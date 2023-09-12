@@ -89,11 +89,6 @@ const listOption = ref([
     link: '/cart'
   },
   {
-    txt: 'Star',
-    img: star,
-    link: '/star'
-  },
-  {
     txt: 'Hidde',
     img: hidde,
     link: '/hidde'
