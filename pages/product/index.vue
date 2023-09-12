@@ -20,8 +20,8 @@ onMounted(async () => {
 
 
 </script>
-<style scoped>
-
+<style lang="scss" scoped>
+@import "assets/scss/_mixins.scss";
 .product {
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
@@ -29,6 +29,14 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-around;
   gap: 30px;
+  @include deptop545 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(150px, 1fr)) !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+  }
 
 }
 

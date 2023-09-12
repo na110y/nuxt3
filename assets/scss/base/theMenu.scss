@@ -1,6 +1,6 @@
-@import "@/assets/scss/_reset.scss";
-@import "@/assets/scss/_variables.scss";
-
+@import "assets/scss/_reset.scss";
+@import "assets/scss/_variables.scss";
+@import "assets/scss/_mixins.scss";
 
 //.router-link-exact-active {
 //  color: green;
@@ -21,7 +21,10 @@
   float: left;
   width: 230px;
   z-index: 1;
-
+  @include deptop768 {
+    transition: .3s ease-out;
+    width: 64px;
+  }
   .right-icon {
     position: absolute;
     top: 19px;
@@ -31,6 +34,9 @@
     cursor: pointer;
     transition: .3s ease-out;
 
+    @include deptop768 {
+    display: none;
+    }
   }
 
   .logo {
@@ -39,7 +45,9 @@
     gap: 0 12px;
     cursor: pointer;
     padding: 20px 0 8px 20px;
-
+    @include deptop768 {
+      padding: 20px 0 8px 12px;
+    }
     img {
       width: 35px;
       height: 30px;
@@ -54,13 +62,20 @@
       font-weight: 600;
       cursor: pointer;
       transition: 0.3s ease-out;
+      @include deptop768 {
+        display: none;
+      }
     }
   }
 
   .menu-txt {
     padding: 50px 0 0 20px;
     color: $gray-2;
+    @include deptop768 {
+      padding: 10px 0 8px 6px ;
+      color: $gray-8;
 
+    }
   }
 
   .option {
@@ -83,7 +98,9 @@
       align-items: center;
       gap: 0 12px;
       color: $gray-0;
-
+      @include deptop768 {
+        display: none;
+      }
     }
 
     .txtOption {
@@ -117,6 +134,9 @@
 
     &-txt {
       color: $gray-0;
+      @include deptop768 {
+        display: none;
+      }
     }
   }
 }
@@ -124,6 +144,12 @@
 .menuNav {
   transition: .3s ease-out;
   width: 64px;
+  @include deptop768 {
+    .menuNav {
+      transition: .3s ease-out;
+      width: 64px;
+    }
+  }
 }
 
 .iconRight {

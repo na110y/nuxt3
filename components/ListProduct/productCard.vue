@@ -35,12 +35,12 @@ export default {
 .product {
   display: flex;
   flex-direction: column;
-  border: .5px solid $gray-8;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   height: 300px;
   border-radius: 9px;
   padding: 8px;
   width: 100%;
+
   &_title {
     width: 100%;
     text-align: center;
