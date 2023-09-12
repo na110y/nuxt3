@@ -23,7 +23,8 @@ onMounted(async () => {
 <style scoped>
 
 .product {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;

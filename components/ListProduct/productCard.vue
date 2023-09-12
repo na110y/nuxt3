@@ -29,7 +29,6 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  max-width: calc(100% / 5 - 30px);
   width: 100%;
 }
 
@@ -42,7 +41,6 @@ export default {
   border-radius: 9px;
   padding: 8px;
   width: 100%;
-
   &_title {
     width: 100%;
     text-align: center;
@@ -72,6 +70,8 @@ export default {
     width: 100%;
     max-height: 200px;
     height: 100%;
+    mix-blend-mode:color-burn;
+
   }
 
   &_detail {
