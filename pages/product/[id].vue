@@ -53,6 +53,9 @@ const decreaseValue = () => {
   }
 };
 
+
+
+
 // tăng số lượng sản phẩm
 const increaseValue = () => {
   currentValue.value++;

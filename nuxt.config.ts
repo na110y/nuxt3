@@ -1,4 +1,7 @@
 export default ({
+    head: {
+        title: 'Đức Thịnh',
+    },
     devtools: {enabled: true},
     buildModules: ['@nuxt/typescript-build'],
     plugins: [
